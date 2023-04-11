@@ -30,9 +30,15 @@ class Analisys:
         self.dfAn['season'] = (([math.floor((t)/90)%4 +1 for t in days]))
         floodReturnPeriod = [stats.floodReturnPeriod[month-1] for month in self.dfAn.month.values]
 
+        print("FLOOD RETURN PERIOD IS:", floodReturnPeriod)
+
         # print([1 - (1-1/floodReturnPeriod[self.dfAn.month.values[i]])**self.dfAn.year.values[i] for i in range(len(self.dfAn.year.values))])
         
-        self.dfAn['FloodRisk'] = [1 - (1-1/floodReturnPeriod[i])** self.dfAn.year[i] for i in self.dfAn.year.values]
+        # self.dfAn['FloodRisk'] = [1 - (1-1/floodReturnPeriod[i])** self.dfAn.year[i] for i in self.dfAn.year.values ]
+        test = [self.dfAn.loc[self.dfAn['year'] == i, 'month'] for i in self.dfAn.year.values][1]
+
+        self.dfAn['FloodRisk'] = [1 - (1-1/floodReturnPeriod[self.dfAn.loc[self.dfAn['year'] == i, 'month'][0]])** self.dfAn.year[i] for i in self.dfAn.year.values ]
+
         numberOfEQ = 10**(eqA - eqB*eqThreshold)
         eqFrequency = numberOfEQ / self.period
 

@@ -62,26 +62,31 @@ class Sym:
 
         self.dfStats.insert(14, 'floodReturnPeriod', [self.getFloodReturnPeriod(self.df.rainOff.loc[self.df['month'] == i], self.qThreshold) for i in range(1,13)])
 
-        fig1, axs1 = plt.subplots(3, 2)
+        fig1, axs1 = plt.subplots(2, 2)
 
         X = range(0, period)
 
-        axs1[0][0].plot(X, self.dailyRain )
+        startTime = 1
+        endTime = 30
+
+
+        axs1[0][0].plot(X[startTime:endTime], self.dailyRain[startTime:endTime] )
         axs1[0][0].set_title('Rainy days')
 
-        axs1[1][0].plot(X, t_min, t_max)
-        axs1[1][0].set_title('t max/min')
+        axs1[0][1].plot(X[startTime:endTime], t_min[startTime:endTime], t_max[startTime:endTime])
+        axs1[0][1].set_title('t max/min')
 
-        axs1[0][1].plot(X,  popWave)
-        axs1[0][1].set_title('pop')
+        # axs1[0][1].plot(X[startTime:endTime],  popWave[startTime:endTime])
+        # axs1[0][1].set_title('pop')
+        axs1[1][0].plot(X[startTime:endTime],  self.df['rainOff'][startTime:endTime] )
+        axs1[1][0].set_title('rainOff')
 
-        axs1[1][1].plot(X,  radiaz )
+        axs1[1][1].plot(X[startTime:endTime],  radiaz[startTime:endTime] )
         axs1[1][1].set_title('radiation')
 
-        axs1[2][0].plot(X,  self.df['rainOff'] )
-        axs1[2][0].set_title('rainOff')
 
-        # plt.show()
+
+        plt.show()
         
     def getDf(self):
         return self.df
