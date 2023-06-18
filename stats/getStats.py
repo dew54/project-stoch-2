@@ -29,7 +29,6 @@ def getStats():
 
     sol = solve((eq1,eq2), (p01, p11))
 
-    print(sol)
 
 
     desc = {                                        # no rain stats

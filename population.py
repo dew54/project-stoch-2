@@ -41,7 +41,7 @@ class Population:
             predicted_data[i] = Utils.computeAR1(predicted_data[i], phi, cov_matrix)   #np.dot(phi, predicted_data[i-1]) + np.random.multivariate_normal(mean_vector, cov_matrix)/1000
 
         # Print the predicted data
-        print('Predicted data:', predicted_data)
+        # print('Predicted data:', predicted_data)
 
         return popToReturn
 

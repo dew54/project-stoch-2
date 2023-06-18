@@ -16,12 +16,12 @@ class Sym:
         self.qThreshold = 500
         self.period = period
         self.weather = Weather(period)
-        self.population = Population(period, mean, numOfTowns)
+        # self.population = Population(period, mean, numOfTowns)
         self.utils = Utils()
         self.dailyRain, t_min, t_max, radiaz = self.weather.weatherGame()
-        popWave = self.population.populationGame()
+        # popWave = self.population.populationGame()
 
-        self.df = pd.DataFrame(columns=['day', 'month', 'season', 'year', 'population', 'rainAmount', 'rainOff',  't_min', 't_max', 'radiation'])
+        self.df = pd.DataFrame(columns=['day', 'month', 'season', 'year',  'rainAmount', 'rainOff',  't_min', 't_max', 'radiation'])
         self.dfStats = pd.DataFrame(columns=['meanRain', 'varRain', 'meanTmin', 'varTmin', 'meanTmax', 'varTmax', 'meanRad', 'varRad', 'meanPop', 'varPop'])
         #self.seasonalStats = pd.DataFrame(columns=['meanRain', 'varRain', 'meanTmin', 'varTmin', 'meanTmax', 'varTmax', 'meanRad', 'varRad'])
 
@@ -30,7 +30,7 @@ class Sym:
         self.df['year'] = ([math.ceil(t/30/12) for t in range(1, period+1)])
         self.df['month'] = ([math.floor((t)/30)%12 +1 for t in range(period)])
         self.df['season'] = (([math.floor((t)/90)%4 +1 for t in range(period)]))
-        self.df['population'] = popWave
+        # self.df['population'] = popWave
         # self.df['LocA'] = 
         # self.df['LocB'] = 
         # self.df['LocC'] = 
@@ -49,8 +49,8 @@ class Sym:
         self.dfStats.varTmax = ([np.var([self.df.t_max.loc[self.df['month'] == i]]) for i in range(1,13)])
         self.dfStats.meanRad = ([np.mean([self.df.radiation.loc[self.df['month'] == i]]) for i in range(1,13)])
         self.dfStats.varRad = ([np.var([self.df.radiation.loc[self.df['month'] == i]]) for i in range(1,13)])
-        self.dfStats.meanPop = ([np.mean([self.df.population.loc[self.df['month'] == i]]) for i in range(1,13)])
-        self.dfStats.varPop = ([np.var([self.df.population.loc[self.df['month'] == i]]) for i in range(1,13)])
+        # self.dfStats.meanPop = ([np.mean([self.df.population.loc[self.df['month'] == i]]) for i in range(1,13)])
+        # self.dfStats.varPop = ([np.var([self.df.population.loc[self.df['month'] == i]]) for i in range(1,13)])
 
         self.dfStats.insert(10, 'belowZeroMean', [self.meanBelowValue(0, (self.df.t_min.loc[self.df['month'] == i]).values) for i in range(1, 13)] )
         self.dfStats.insert(11, 'belowZeroVar', [self.varBelowValue(0, (self.df.t_min.loc[self.df['month'] == i]).values) for i in range(1, 13)] )
@@ -138,7 +138,6 @@ class Sym:
         events = []
         periods = []
         [events.append(i) for i in range(len(data.values)) if data.values[i] > threshold]
-        print("events are", events)
         if len(events) < 1:
             return 100
         else:

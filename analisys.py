@@ -30,7 +30,6 @@ class Analisys:
         self.dfAn['season'] = (([math.floor((t)/90)%4 +1 for t in days]))
         floodReturnPeriod = [stats.floodReturnPeriod[month-1] for month in self.dfAn.month.values]
 
-        print("FLOOD RETURN PERIOD IS:", floodReturnPeriod)
 
         # print([1 - (1-1/floodReturnPeriod[self.dfAn.month.values[i]])**self.dfAn.year.values[i] for i in range(len(self.dfAn.year.values))])
         
@@ -43,7 +42,6 @@ class Analisys:
         eqFrequency = numberOfEQ / self.period
 
         self.dfAn['EqRisk'] = [1- math.exp(-1*eqFrequency*self.dfAn.year.values[i]) for i in self.dfAn.year.values]
-        print(data)
 
         print("##########################################################################")
 
@@ -60,10 +58,10 @@ class Analisys:
         self.dfAn.sort_values(by=['day'])
 
         # self.dfAn['HRainRisk'] = data.rainAmount.loc[data['day'] == self.dfAn.day[0] ] 
-        print(self.dfAn)
+        # print(self.dfAn)
         normalizedDF = self.dfAn.iloc[:,4:].apply(lambda x: (abs(x))/sum(x), axis=0)
-        print(normalizedDF)
-        normalizedDF.plot()
+        # print(normalizedDF)
+        # normalizedDF.plot()
 
         plt.show()
  
