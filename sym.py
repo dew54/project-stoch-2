@@ -62,28 +62,55 @@ class Sym:
 
         self.dfStats.insert(14, 'floodReturnPeriod', [self.getFloodReturnPeriod(self.df.rainOff.loc[self.df['month'] == i], self.qThreshold) for i in range(1,13)])
 
-        fig1, axs1 = plt.subplots(2, 2)
+        fig1, axs = plt.subplots(2, 2, figsize=(8, 6), tight_layout=True, sharex=True)
 
-        X = range(0, period)
+        X = range(0, period )
 
         startTime = 1
         endTime = 30
 
 
-        axs1[0][0].plot(X[startTime:endTime], self.dailyRain[startTime:endTime] )
-        axs1[0][0].set_title('Rainy days')
+        axs[0][0].plot(X[startTime:endTime], self.dailyRain[startTime:endTime] )
+        axs[0][0].set_title('Rainy days')
 
-        axs1[0][1].plot(X[startTime:endTime], t_min[startTime:endTime], t_max[startTime:endTime])
-        axs1[0][1].set_title('t max/min')
+        axs[0][1].plot(X[startTime:endTime], t_min[startTime:endTime], t_max[startTime:endTime])
+        axs[0][1].set_title('t max/min')
 
-        # axs1[0][1].plot(X[startTime:endTime],  popWave[startTime:endTime])
-        # axs1[0][1].set_title('pop')
-        axs1[1][0].plot(X[startTime:endTime],  self.df['rainOff'][startTime:endTime] )
-        axs1[1][0].set_title('rainOff')
+        # axs[0][1].plot(X[startTime:endTime],  popWave[startTime:endTime])
+        # axs[0][1].set_title('pop')
+        axs[1][0].plot(X[startTime:endTime],  self.df['rainOff'][startTime:endTime] )
+        axs[1][0].set_title('rainOff')
 
-        axs1[1][1].plot(X[startTime:endTime],  radiaz[startTime:endTime] )
-        axs1[1][1].set_title('radiation')
+        axs[1][1].plot(X[startTime:endTime],  radiaz[startTime:endTime] )
+        axs[1][1].set_title('radiation')
+        # plt.rc('axes',edgecolor='white')
+        # plt.rc('xtick', color='white')
+        # plt.rc('ytick', color='white')
 
+        # color = 'white'
+
+        # for ax in axs.flat:
+        #     ax.spines['bottom'].set_color(color)
+        #     ax.spines['left'].set_color(color)
+        #     ax.spines['top'].set_color(color)
+        #     ax.spines['right'].set_color(color)
+
+        # # Set the color for the x-axis and y-axis labels
+        # for ax in axs.flat:
+        #     ax.xaxis.label.set_color(color)
+        #     ax.yaxis.label.set_color(color)
+
+        # # Set the color for the x-axis and y-axis tick parameters
+        # for ax in axs.flat:
+        #     ax.tick_params(axis='x', colors=color)
+        #     ax.tick_params(axis='y', colors=color)
+        
+        # for ax in axs.flat:
+        #     ax.title.set_color('white')
+        
+        
+
+        # plt.savefig('grafico1.png',transparent=True)
 
 
         plt.show()
@@ -165,7 +192,7 @@ class Sym:
         ax.set_xlabel("Data")
         ax.set_ylabel("Probability")
         ax.minorticks_on()
-        plt.show()
+        # plt.show()
 
 
 if __name__ == "__main__":

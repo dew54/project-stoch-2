@@ -55,7 +55,7 @@ class Analisys:
 
         self.dfAn['belowZeroRisk'] = [stats.belowZeroMean[i-1] for i in self.dfAn.month.values]
 
-        self.dfAn['expectedPopulation'] = ([np.mean([data.population.loc[data['day'] == math.ceil(i%360)+1]]) for i in self.dfAn['day'].values])
+        # self.dfAn['expectedPopulation'] = ([np.mean([data.population.loc[data['day'] == math.ceil(i%360)+1]]) for i in self.dfAn['day'].values])
     
         self.dfAn.sort_values(by=['day'])
 
